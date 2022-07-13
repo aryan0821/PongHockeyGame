@@ -1,0 +1,92 @@
+#:kivy 2.1.0
+
+<PongGame>:
+    id: game
+    ball: pong_ball
+    player1: player_left
+    player2: player_right
+    
+    Image:
+        source: 'images/space_background3.png'
+        size: root.width, root.height
+        allow_stretch: True
+        keep_ratio: False
+
+    Label:
+        font_size: 70  
+        center_x: root.width / 4
+        top: root.top - 50
+        text: str(root.player1.score)
+        
+    Label:
+        font_size: 70  
+        center_x: root.width * 3 / 4
+        top: root.top - 50
+        text: str(root.player2.score)
+
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+
+    PongPaddle:
+        id: player_left
+        text: "1"
+        x: root.x + 30
+        center_y: root.center_y
+        
+    PongPaddle:
+        id: player_right
+        text: "2"
+        x: root.width - (self.width + 30)
+        center_y: root.center_y
+
+    PongGoal:
+        id: player_left_goal
+        size: 15, root.height/3
+        x: root.x + 10
+        center_y: root.center_y
+    
+    PongGoal:
+        id: player_right_goal
+        size: 15, root.height/3
+        x: root.width - (self.width + 10)
+        center_y: 415
+
+    Button:
+        id: start_btn
+        text: "Start"
+        size_hint: None, None
+        center_x: 60
+        center_y: 60
+        background_color: 1 , 0 , 1 , 1
+        on_release: root.serve_ball(vel=(4, 0))
+    
+    Button:
+        id: pause_btn
+        text: "Pause"
+        center_x: self.width*2 - 20
+        center_y: 60
+        size_hint: None, None
+        background_color: 0.7, 0.1, 0.5, 1
+        on_release: root.pause_game()
+
+<PongBall>:
+    size: 50, 50
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<PongPaddle>:
+    size: 150, 150
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size
+<PongGoal>
+    canvas:
+        Color:
+            rgba: 0.3, 0.2, 0.8, 0.5
+        Rectangle:
+            pos: self.pos
+            size: self.size
