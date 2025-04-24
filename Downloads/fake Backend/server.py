@@ -5,102 +5,108 @@ app = Flask(__name__)
 CORS(app)
 
 trial3Json = {
-  "nodes": [
-    {
-      "id": "ChatInput-xyz789",
-      "type": "genericNode",
-      "position": { "x": 250, "y": 300 },
-      "data": {
-        "type": "ChatInputComponent",
-        "id": "ChatInput-xyz789",
-        "node": {
-          "display_name": "Chat Input",
-          "description": "Get chat inputs from the Playground.",
-          "base_classes": ["Message"],
-          "template": {
-            "input_value": {
-              "type": "str",
-              "display_name": "Text",
-              "value": "Hello",
-              "info": "Message to be passed as input."
+    "nodes": [
+        {
+            "id": "1",
+            "type": "genericNode",
+            "position": {
+                "x": 100,
+                "y": 200
             },
-            "sender": {
-              "type": "str", 
-              "value": "User",
-              "options": ["Machine", "User"]
-            }
-          }
+            "data": {
+                "type": "OpenAIModel",
+                "node": {
+                    "template": {
+                        "_type": "Component",
+                        "input": {
+                            "_input_type": "StrInput",
+                            "display_name": "Input",
+                            "name": "input",
+                            "type": "str",
+                            "required": False,
+                            "placeholder": "",
+                            "advanced": False,
+                            "show": True,
+                            "multiline": False,
+                            "value": ""
+                        },
+                        "system_message": {
+                            "_input_type": "StrInput",
+                            "display_name": "System Message",
+                            "name": "system_message",
+                            "type": "str",
+                            "required": False,
+                            "multiline": True,
+                            "placeholder": "Type something...",
+                            "advanced": False,
+                            "show": True,
+                            "info": "",
+                            "value": ""
+                        },
+                        "model_name": {
+                            "_input_type": "DropdownInput",
+                            "display_name": "Model Name",
+                            "name": "model_name",
+                            "type": "str",
+                            "required": False,
+                            "value": "gpt-4o",
+                            "options": ["gpt-4o", "gpt-4", "gpt-3.5-turbo"],
+                            "advanced": False,
+                            "show": True
+                        },
+                        "api_key": {
+                            "_input_type": "SecretStrInput",
+                            "display_name": "OpenAI API Key",
+                            "name": "api_key",
+                            "type": "str",
+                            "required": True,
+                            "password": True,
+                            "advanced": False,
+                            "show": True,
+                            "info": "The OpenAI API Key to use for the OpenAI model.",
+                            "value": ""
+                        },
+                        "temperature": {
+                            "_input_type": "SliderInput",
+                            "display_name": "Temperature",
+                            "name": "temperature",
+                            "type": "float",
+                            "required": False,
+                            "value": 0.10,
+                            "range_spec": {
+                                "min": 0, 
+                                "max": 1, 
+                                "step": 0.01
+                            },
+                            "advanced": False,
+                            "show": True
+                        }
+                    },
+                    "description": "Generates text using OpenAI LLMs.",
+                    "display_name": "OpenAI",
+                    "icon": "OpenAI",
+                    "base_classes": ["Message", "LanguageModel"],
+                    "custom_component": False,
+                    "output_types": ["Message", "LanguageModel"]
+                },
+                "id": "1"
+            },
+            "width": 400,
+            "height": 500,
+            "selected": False,
+            "positionAbsolute": {
+                "x": 100,
+                "y": 200
+            },
+            "dragging": False
         }
-      }
-    },
-    {
-      "id": "OpenAIModel-abc123",
-      "type": "OpenAIModel",
-      "position": { "x": 500, "y": 300 },
-      "data": {
-        "type": "OpenAIModelComponent",
-        "id": "OpenAIModel-abc123",
-        "node": {
-          "display_name": "OpenAI",
-          "description": "Generates text using OpenAI LLMs.",
-          "base_classes": ["LanguageModel"],
-          "template": {
-            "api_key": {
-              "type": "str",
-              "required": True,
-              "display_name": "OpenAI API Key",
-              "value": ""
-            },
-            "model_name": {
-              "type": "str",
-              "required": True,
-              "display_name": "Model Name",
-              "value": "gpt-4o"
-            },
-            "temperature": {
-              "type": "float",
-              "required": False,
-              "display_name": "Temperature",
-              "value": 0.1
-            },
-            "input_value": {
-              "type": "str",
-              "display_name": "Input",
-              "value": ""
-            },
-            "system_message": {
-              "type": "str",
-              "display_name": "System Message",
-              "value": ""
-            }
-          }
-        }
-      }
+    ],
+    "edges": [],
+    "viewport": {
+        "x": 0,
+        "y": 0,
+        "zoom": 1
     }
-  ],
-  "edges": [
-    {
-      "id": "edge-ChatInput-xyz789-to-OpenAIModel-abc123",
-      "source": "ChatInput-xyz789",
-      "target": "OpenAIModel-abc123",
-      "sourceHandle": "{œdataTypeœ:œChatInputComponentœ,œidœ:œChatInput-xyz789œ,œnameœ:œmessageœ,œoutput_typesœ:[œMessageœ]}",
-      "targetHandle": "{œfieldNameœ:œinput_valueœ,œidœ:œOpenAIModel-abc123œ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
-      "data": {
-        "sourceHandle": {
-          "dataType": "ChatInputComponent",
-          "id": "ChatInput-xyz789",
-          "name": "message", 
-          "output_types": ["Message"]
-        },
-        "targetHandle": {
-          "fieldName": "input_value",
-          "id": "OpenAIModel-abc123",
-          "inputTypes": ["Message"],
-          "type": "str"
-        }
-      }
-    }
-  ]
 }
 
 trial2Json = {
